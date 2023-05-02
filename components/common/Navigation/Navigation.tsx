@@ -5,12 +5,12 @@ import NavigationItem from "./NavigationItem/NavigationItem";
 const Navigation = () => {
     return (
         <NavigationContainer>
-            {
-                menu.map((menuItem,index) => 
-                <NavigationItem 
-                    key={`${index}-${menuItem.title}`} 
-                    item={menuItem}  />)
-            }
+        {
+            menu.map((menuItem,index) => 
+            <NavigationItem 
+                key={`${index}-${menuItem.title}`} 
+                item={menuItem}  />)
+        }
         </NavigationContainer>
     )
 }

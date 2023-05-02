@@ -18,11 +18,13 @@ export const FilterWraper = styled.div`
 
 interface FilterItemStyledProps {
     noBorder ?: boolean
+    backGroundColor ?: string;
 }
 export const FilterItemStyled = styled.div<FilterItemStyledProps>`
     margin: 10px 0;
     padding: 0 20px;
     border-right:${props=> props.noBorder ? "0px" : "1px" } solid #dcd0d0;
+    ${({backGroundColor}) => backGroundColor && `background-color: ${backGroundColor}`}
 `;
 
 export const IconContainerStyled = styled.div`
@@ -42,4 +44,15 @@ export const InputStyled = styled.input`
     &:focus-visible {
         outline : none;
     }
+`;
+
+export const SearchIconWraper = styled.div`
+    height : 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    background-color : #F16B51;
+    padding: 3px 6px;
+    border-radius: 11px;
 `;
