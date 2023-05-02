@@ -1,6 +1,3 @@
-import { DefaultImage } from '@/constants';
-import { Tour } from '@/utils/services';
-import React, { FC } from 'react';
 import styled from 'styled-components';
 
 export const CardsContainer = styled.div`
@@ -74,14 +71,5 @@ export const CardButton = styled.button`
 
 
 
-const cardsData = [  {    id: 1,    image: 'https://via.placeholder.com/400x400',    title: 'Card 1',    buttonLabel: 'Learn More'  },  {    id: 2,    image: 'https://via.placeholder.com/400x400',    title: 'Card 2',    buttonLabel: 'Learn More'  },  {    id: 3,    image: 'https://via.placeholder.com/400x400',    title: 'Card 3',    buttonLabel: 'Learn More'  },  {    id: 4,    image: 'https://via.placeholder.com/400x400',    title: 'Card 4',    buttonLabel: 'Learn More'  },  {    id: 5,    image: 'https://via.placeholder.com/400x400',    title: 'Card 5',    buttonLabel: 'Learn More'  },  {    id: 6,    image: 'https://via.placeholder.com/400x400',    title: 'Card 6',    buttonLabel: 'Learn More'  }];
+// const cardsData = [  {    id: 1,    image: 'https://via.placeholder.com/400x400',    title: 'Card 1',    buttonLabel: 'Learn More'  },  {    id: 2,    image: 'https://via.placeholder.com/400x400',    title: 'Card 2',    buttonLabel: 'Learn More'  },  {    id: 3,    image: 'https://via.placeholder.com/400x400',    title: 'Card 3',    buttonLabel: 'Learn More'  },  {    id: 4,    image: 'https://via.placeholder.com/400x400',    title: 'Card 4',    buttonLabel: 'Learn More'  },  {    id: 5,    image: 'https://via.placeholder.com/400x400',    title: 'Card 5',    buttonLabel: 'Learn More'  },  {    id: 6,    image: 'https://via.placeholder.com/400x400',    title: 'Card 6',    buttonLabel: 'Learn More'  }];
 
-// const CardList = () => {
-//   return (
-//     <CardsContainer>
-//       {cardsData.map(card =>
-//         <Card key={card.id} image={card.image} title={card.title} buttonLabel={card.buttonLabel} />
-//       )}
-//       </CardsContainer>
-//   )
-// }
