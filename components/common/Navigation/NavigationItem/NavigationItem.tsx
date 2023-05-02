@@ -8,7 +8,7 @@ interface NavigationItemPropsType {
 const NavigationItem : FC<NavigationItemPropsType> = ({item}) =>{
     const { isLoading, isAuthenticated, error, user, loginWithRedirect, logout, loginWithPopup } =
     useAuth0();
-    console.log({user})
+    // console.log({user})
     return (
         <div>
             {

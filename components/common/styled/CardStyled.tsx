@@ -11,7 +11,7 @@ export const CardsContainer = styled.div`
   margin: 0 auto;
 `;
 
-const CardContainer = styled.div`
+export const CardContainer = styled.div`
   flex: 0 0 calc(33.33% - 20px);
   margin-bottom: 20px;
   border: 1px solid #ddd;
@@ -36,25 +36,25 @@ const CardContainer = styled.div`
   }
 `;
 
-const CardImage = styled.img`
+export const CardImage = styled.img`
   width: 100%;
   height: 200px;
   object-fit: cover;
   border-radius: 10px;
 `;
 
-const CardTitle = styled.h3`
+export const CardTitle = styled.h3`
   margin: 10px 0;
   font-size: 1.2rem;
   font-weight: bold;
   text-align: center;
 `;
-const CardDescription = styled.p`
+export const CardDescription = styled.p`
   margin: 10px 10px;
   text-align: left;
 `;
 
-const CardButton = styled.button`
+export const CardButton = styled.button`
   padding: 10px 20px;
   position: absolute;
   bottom :0;
@@ -72,19 +72,7 @@ const CardButton = styled.button`
   }
 `;
 
-interface CardProps {
-  tour : Tour;
-}
-const Card: FC<CardProps> = ({ tour }) => {
-  return (
-    <CardContainer>
-      <CardImage src={tour?.images[0] || DefaultImage} alt={tour.publicAddress} />
-      <CardTitle>{tour.title }</CardTitle>
-      <CardDescription>{tour.listingName}</CardDescription>
-      <CardButton>View Details</CardButton>
-    </CardContainer>
-  );
-};
+
 
 const cardsData = [  {    id: 1,    image: 'https://via.placeholder.com/400x400',    title: 'Card 1',    buttonLabel: 'Learn More'  },  {    id: 2,    image: 'https://via.placeholder.com/400x400',    title: 'Card 2',    buttonLabel: 'Learn More'  },  {    id: 3,    image: 'https://via.placeholder.com/400x400',    title: 'Card 3',    buttonLabel: 'Learn More'  },  {    id: 4,    image: 'https://via.placeholder.com/400x400',    title: 'Card 4',    buttonLabel: 'Learn More'  },  {    id: 5,    image: 'https://via.placeholder.com/400x400',    title: 'Card 5',    buttonLabel: 'Learn More'  },  {    id: 6,    image: 'https://via.placeholder.com/400x400',    title: 'Card 6',    buttonLabel: 'Learn More'  }];
 
@@ -97,4 +85,3 @@ const cardsData = [  {    id: 1,    image: 'https://via.placeholder.com/400x400'
 //       </CardsContainer>
 //   )
 // }
-  export default Card;

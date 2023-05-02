@@ -1,3 +1,4 @@
+import Header from '@/components/common/Header/Header';
 import '@/styles/globals.css'
 import { AppState, Auth0Provider } from '@auth0/auth0-react';
 import type { AppProps } from 'next/app'
@@ -23,7 +24,8 @@ export default function App({ Component, pageProps }: AppProps<{ dehydratedState
           >
           <QueryClientProvider client={queryClient}>
             <Hydrate state={pageProps.dehydratedState}>
-                <Component {...pageProps} />
+              <Header />
+              <Component {...pageProps} />
 
             </Hydrate>
             

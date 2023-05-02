@@ -1,7 +1,7 @@
 import { QueryClient, dehydrate, useQuery, useQueryClient } from "react-query";
-import CardList, { CardsContainer } from "../common/styled/CardStyled";
+import  { CardsContainer } from "../common/styled/CardStyled";
 import { Tour, getTours } from "@/utils/services";
-import Card from "../common/styled/CardStyled";
+import Card from "../common/Card/Card";
 
 export async function getServerSideProps() {
     const queryClient = new QueryClient();

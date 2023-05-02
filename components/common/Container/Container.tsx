@@ -2,11 +2,12 @@ import { Children, FC, ReactNode } from "react"
 import { ContainerStyled } from "./ContainerStyled"
 
 interface ContainerPropsType {
-    children : ReactNode
+    children : ReactNode;
+    isSubpage ?: boolean;
 }
-const Container: FC<ContainerPropsType> = ({children}) => {
+const Container: FC<ContainerPropsType> = ({children, isSubpage}) => {
     return (
-        <ContainerStyled>
+        <ContainerStyled subpage={isSubpage}>
             {children}
         </ContainerStyled>
     )
