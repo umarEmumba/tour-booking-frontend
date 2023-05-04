@@ -1,29 +1,28 @@
-
 export const getMonthFromDateObj = (date: Date) => {
-    const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-  
-    const dayMonthFormat = {
-      stringFormat: `${date.getDate()} ${monthNames[date.getMonth()]}`,
-      objectFormat: date,
-    };
-  
-    return dayMonthFormat;
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const dayMonthFormat = {
+    stringFormat: `${date.getDate()} ${monthNames[date.getMonth()]}`,
+    objectFormat: date,
   };
 
-  import axios from "axios";
+  return dayMonthFormat;
+};
+
+import axios from "axios";
 
 type FetchType = [
   "get" | "post" | "delete" | "patch" | "put",
@@ -48,12 +47,24 @@ export const api = {
   delete: (...args: ArgsType) => fetchAPIData(["delete", ...args]),
 };
 
-
 const fetchAPIData = async ([method, url, options]: FetchType) => {
   // try {
-    return await axios[method](url, { ...options });
-    // return response?.data;
+  return await axios[method](url, { ...options });
+  // return response?.data;
   // } catch (error) {
   //   return Promise.reject(error);
   // }
+};
+
+export const getTourDays = (checkin?: string, checkout?: string) => {
+  if (!checkin || !checkout) return `5`;
+
+  const checkInDate = new Date(checkin);
+  const checkOutDate = new Date(checkout);
+
+  const duration = Math.round(
+    (+checkOutDate - +checkInDate) / (1000 * 60 * 60 * 24)
+  );
+
+  return duration;
 };

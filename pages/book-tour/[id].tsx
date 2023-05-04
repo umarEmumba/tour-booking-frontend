@@ -1,4 +1,4 @@
-import TourDetail from "@/components/TourDetail/TourDetail";
+import BookTour from "@/components/BookTour/BookTour";
 import Container from "@/components/common/Container/Container";
 import { Tour, getTour } from "@/utils/services";
 import { useRouter } from "next/router";
@@ -12,9 +12,5 @@ export default function Tour() {
     return getTour(id);
   });
 
-  return (
-    <Container isSubpage>
-      {tour ? <TourDetail tour={tour} /> : <h2>not found</h2>}
-    </Container>
-  );
+  return <Container isSubpage>{tour && <BookTour />}</Container>;
 }
