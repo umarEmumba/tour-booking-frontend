@@ -3,6 +3,7 @@ import {
   API_HOST,
   API_KEY,
   DefaultLocationId,
+  SERVER_URL,
   TOURS_END_POINT,
   TOURS_END_POINT_NO_LOCATION,
   filtersType,
@@ -115,6 +116,15 @@ export interface Verified {
   badgeSecondaryText: string;
   kickerBadgeType: string;
 }
+export interface Booking {
+  email: string;
+  name: string;
+  paymentMethod: string;
+  phoneNo: string;
+  tourId: string;
+  userEmail: string;
+  _id: string;
+}
 
 export async function getTours(): Promise<Tour[]> {
   Promise.resolve(tourData);
@@ -138,6 +148,15 @@ export async function getTours(): Promise<Tour[]> {
     },
   });
   return data.data;
+}
+export async function getBooking(
+  email: string | null | undefined,
+  id: string | undefined
+): Promise<Booking> {
+  const { data } = await api.get(`${SERVER_URL}bookings`, {
+    params: { userEmail: email, tourId: id },
+  });
+  return data[0];
 }
 
 export async function getFilteredTours(filters: filtersType): Promise<Tour[]> {

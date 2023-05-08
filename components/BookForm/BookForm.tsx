@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import {
   FormWrapper,
   Input,
@@ -10,6 +10,10 @@ import {
 } from "../BookTour/BookTourStyled";
 import { useForm, Controller } from "react-hook-form";
 import { FormInputs } from "@/constants";
+import { useQuery, useQueryClient } from "react-query";
+import { useRouter } from "next/router";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { Booking, getBooking } from "@/utils/services";
 
 interface BookFormProps {
   onSubmit: (data: FormInputs) => void;
@@ -21,15 +25,33 @@ const BookForm: FC<BookFormProps> = ({ onSubmit }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormInputs>();
+  const router = useRouter();
+  const { id } = router.query;
+  const tourId = useMemo(() => {
+    if (id?.length) {
+      if (Array.isArray(id)) return id[0];
+      return id;
+    }
+  }, [id]);
+  const { user } = useUser();
+  const { data: booking } = useQuery<Booking>({
+    queryKey: `booking-${tourId}`,
+    queryFn: () => getBooking(user?.email, tourId),
+  });
+  const formSubmitted = (data: FormInputs) => {
+    data.bookingId = booking?._id;
+    onSubmit(data);
+  };
+
   return (
-    <FormWrapper onSubmit={handleSubmit(onSubmit)}>
-      <h1>Confirm Your Booking</h1>
+    <FormWrapper onSubmit={handleSubmit(formSubmitted)}>
+      {booking ? <h1>Update Your Booking</h1> : <h1>Confirm Your Booking</h1>}
       <InputWrapper>
         <Label>Name:</Label>
         <Controller
           name="name"
           control={control}
-          defaultValue=""
+          defaultValue={booking?.name || ""}
           render={({ field }) => (
             <>
               <Input {...field} type="text" />
@@ -44,7 +66,7 @@ const BookForm: FC<BookFormProps> = ({ onSubmit }) => {
         <Controller
           name="email"
           control={control}
-          defaultValue=""
+          defaultValue={booking?.email || ""}
           render={({ field }) => (
             <>
               <Input {...field} type="text" />
@@ -65,7 +87,7 @@ const BookForm: FC<BookFormProps> = ({ onSubmit }) => {
         <Controller
           name="phoneNo"
           control={control}
-          defaultValue=""
+          defaultValue={booking?.phoneNo || ""}
           render={({ field }) => (
             <>
               <Input {...field} type="text" />
@@ -80,7 +102,7 @@ const BookForm: FC<BookFormProps> = ({ onSubmit }) => {
         <Controller
           name="paymentMethod"
           control={control}
-          defaultValue=""
+          defaultValue={booking?.paymentMethod || ""}
           render={({ field }) => (
             <>
               <Select {...field}>

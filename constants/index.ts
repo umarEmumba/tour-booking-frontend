@@ -69,6 +69,7 @@ export interface FormInputs {
   paymentMethod: string;
   tourId?: string;
   userEmail?: string;
+  [key: string]: any;
 }
 export interface localTour {
   name: string;
@@ -82,5 +83,5 @@ export interface localTour {
   publicAddress: string;
   id: string;
   userEmail: string;
-  listingPreviewAmenityNames: string[];
+  listingPreviewAmenityNames?: string[];
 }

@@ -17,7 +17,6 @@ const Tours = () => {
 
     return response.data;
   });
-  console.log({ tours });
 
   return (
     <Container isSubpage>

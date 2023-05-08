@@ -1,6 +1,6 @@
 import { FormInputs, SERVER_URL, localTour } from "@/constants";
 import { api } from "@/utils";
-import { getTour } from "@/utils/services";
+import { getBooking, getTour } from "@/utils/services";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
@@ -18,8 +18,16 @@ export const useBookTour = () => {
       return id;
     }
   }, [id]);
+
   const { mutate: mutateBooking, status } = useMutation(
     async (formData: FormInputs) => {
+      if (formData.bookingId) {
+        const { data } = await api.patch(
+          `${SERVER_URL}bookings/${formData.bookingId}`,
+          formData
+        );
+        return data.data;
+      }
       const { data } = await api.post(`${SERVER_URL}bookings`, formData);
       return data.data;
     },
@@ -70,7 +78,7 @@ export const useBookTour = () => {
       userEmail: user.email,
       listingPreviewAmenityNames: tour.listingPreviewAmenityNames,
     };
-    mutateTours(tourToSave);
+    if (!data.bookingId) mutateTours(tourToSave);
   };
 
   return {

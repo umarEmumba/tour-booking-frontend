@@ -15,7 +15,6 @@ export const CardContainer = styled.div`
   border-radius: 10px;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
-
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -23,11 +22,9 @@ export const CardContainer = styled.div`
       display: block;
     }
   }
-
   @media (max-width: 991px) {
     flex: 0 0 calc(50% - 20px);
   }
-
   @media (max-width: 767px) {
     flex: 0 0 calc(100% - 20px);
   }
@@ -46,12 +43,16 @@ export const CardTitle = styled.h3`
   font-weight: bold;
   text-align: center;
 `;
+
 export const CardDescription = styled.p`
   margin: 10px 10px;
   text-align: left;
 `;
 
-export const CardButton = styled.button`
+interface CardButtonProps {
+  visible?: boolean;
+}
+export const CardButton = styled.button<CardButtonProps>`
   padding: 10px 20px;
   border-radius: 5px;
   background-color: #f16b51;
@@ -62,10 +63,8 @@ export const CardButton = styled.button`
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.2s ease-in-out;
-  display: none;
+  ${(props) => !props.visible && "display: none"};
   &:hover {
     background-color: #3e8e41;
   }
 `;
-
-// const cardsData = [  {    id: 1,    image: 'https://via.placeholder.com/400x400',    title: 'Card 1',    buttonLabel: 'Learn More'  },  {    id: 2,    image: 'https://via.placeholder.com/400x400',    title: 'Card 2',    buttonLabel: 'Learn More'  },  {    id: 3,    image: 'https://via.placeholder.com/400x400',    title: 'Card 3',    buttonLabel: 'Learn More'  },  {    id: 4,    image: 'https://via.placeholder.com/400x400',    title: 'Card 4',    buttonLabel: 'Learn More'  },  {    id: 5,    image: 'https://via.placeholder.com/400x400',    title: 'Card 5',    buttonLabel: 'Learn More'  },  {    id: 6,    image: 'https://via.placeholder.com/400x400',    title: 'Card 6',    buttonLabel: 'Learn More'  }];

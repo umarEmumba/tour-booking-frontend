@@ -20,8 +20,6 @@ interface TourDetailProps {
   tour: Tour;
 }
 const TourDetail: FC<TourDetailProps> = ({ tour }) => {
-  console.log({ tour });
-
   const router = useRouter();
   return (
     <>
@@ -46,7 +44,10 @@ const TourDetail: FC<TourDetailProps> = ({ tour }) => {
       <ResponsiveTable tour={tour} />
       <HeadingStyled>{`Itinerary Schedule`}</HeadingStyled>
       <ActionButtonContainer>
-        <CardButton onClick={() => router.push(`/book-tour/${tour.id}`)}>
+        <CardButton
+          visible
+          onClick={() => router.push(`/book-tour/${tour.id}`)}
+        >
           Book Tour
         </CardButton>
       </ActionButtonContainer>

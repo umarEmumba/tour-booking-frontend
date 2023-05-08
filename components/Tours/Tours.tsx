@@ -4,18 +4,6 @@ import { Tour, getTours } from "@/utils/services";
 import Card from "../common/Card/Card";
 import NoData from "../common/NoData/NoData";
 
-export async function getServerSideProps() {
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery("tours", getTours);
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
-}
-
 const Tours = () => {
   const queryClient = useQueryClient();
   const {

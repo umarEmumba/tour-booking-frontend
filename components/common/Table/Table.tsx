@@ -19,7 +19,6 @@ const Row = styled.tr`
 
 const Cell = styled.td`
   padding: 10px;
-
   &:first-child {
     font-weight: bold;
   }
@@ -58,7 +57,7 @@ export const ResponsiveTable: FC<ResponsiveTableProps> = ({ tour }) => {
           <Cell>Additional Facilities</Cell>
           <Cell>
             <AdditionalServicesWraper>
-              {tour.listingPreviewAmenityNames.map((service, index) => (
+              {tour.listingPreviewAmenityNames?.map((service, index) => (
                 <AdditionalServices key={`${index}-${service}`}>
                   <LogoImage
                     src="/assets/images/icons/tick.svg"

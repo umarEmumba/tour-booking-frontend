@@ -16,8 +16,11 @@ import { api } from "@/utils";
 interface CardProps {
   tour: Tour;
 }
-export const ActionButtonContainer = styled.div`
-  position: absolute;
+interface ActionButtonContainerProps {
+  position?: "absolute" | "static" | "relative";
+}
+export const ActionButtonContainer = styled.div<ActionButtonContainerProps>`
+  position: ${(props) => props.position || "static"};
   display: flex;
   width: 100%;
   align-items: center;
@@ -45,7 +48,6 @@ const Card: FC<CardProps> = ({ tour }) => {
       onSuccess: (id) => {
         const previousTours: Tour[] | undefined =
           queryClient.getQueryData("my-tours");
-        console.log({ previousTours });
 
         if (previousTours)
           queryClient.setQueryData(
@@ -63,18 +65,23 @@ const Card: FC<CardProps> = ({ tour }) => {
       />
       <CardTitle>{tour.title}</CardTitle>
       <CardDescription>{tour.listingName}</CardDescription>
-      <ActionButtonContainer>
+      <ActionButtonContainer position="absolute">
         <CardButton onClick={() => handleViewDetails(tour)}>
           View Details
         </CardButton>
         {tour._id && (
-          <CardButton
-            onClick={() => {
-              tour._id && mutate(tour._id);
-            }}
-          >
-            Delete
-          </CardButton>
+          <>
+            <CardButton
+              onClick={() => {
+                tour._id && mutate(tour._id);
+              }}
+            >
+              Delete
+            </CardButton>
+            <CardButton onClick={() => router.push(`/book-tour/${tour.id}`)}>
+              Update
+            </CardButton>
+          </>
         )}
       </ActionButtonContainer>
     </CardContainer>
