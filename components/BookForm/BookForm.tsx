@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { FormInputs } from "../BookTour/BookTour";
 import {
   FormWrapper,
   Input,
@@ -10,10 +9,12 @@ import {
   Button,
 } from "../BookTour/BookTourStyled";
 import { useForm, Controller } from "react-hook-form";
+import { FormInputs } from "@/constants";
 
 interface BookFormProps {
   onSubmit: (data: FormInputs) => void;
 }
+
 const BookForm: FC<BookFormProps> = ({ onSubmit }) => {
   const {
     control,
