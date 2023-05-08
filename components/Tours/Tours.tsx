@@ -2,6 +2,7 @@ import { QueryClient, dehydrate, useQuery, useQueryClient } from "react-query";
 import { CardsContainer } from "../common/styled/CardStyled";
 import { Tour, getTours } from "@/utils/services";
 import Card from "../common/Card/Card";
+import NoData from "../common/NoData/NoData";
 
 export async function getServerSideProps() {
   const queryClient = new QueryClient();
@@ -33,16 +34,15 @@ const Tours = () => {
   if (isError) {
     return <div>Error</div>;
   }
+  if (!tours?.length) {
+    return <NoData />;
+  }
   return (
     <>
-      {tours?.length && (
-        <>
-          <h2>Top Destinations At {`"${tours[0].localizedCityName}"`}</h2>
-        </>
-      )}
+      <h2>Top Destinations At {`"${tours[0].localizedCityName}"`}</h2>
       <CardsContainer>
-        {tours?.map((tour: Tour) => (
-          <Card key={tour.id} tour={tour} />
+        {tours?.map((tour: Tour, index) => (
+          <Card key={`${index}-${tour.id}`} tour={tour} />
         ))}
       </CardsContainer>
     </>

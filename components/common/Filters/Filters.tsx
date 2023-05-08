@@ -22,6 +22,7 @@ import { api } from "@/utils";
 import LocationIcon from "../Icons/LocationIcon/LocationIcon";
 import CalendarIcon from "../Icons/CalendarIcon/CalendarIcon";
 import DollarIcon from "../Icons/DollarIcon/DollarIcon";
+import { LogoImage } from "../Logo/LogoStyled";
 
 const Filters = () => {
   const [filterItems, setFilterItems] = useState<filtersType>({
@@ -68,11 +69,11 @@ const Filters = () => {
         </FilterItemStyled>
         <FilterItemStyled noBorder>
           <SearchIconWraper onClick={() => refetchQueryMutation.mutate()}>
-            <Image
+            <LogoImage
               src="/assets/images/icons/search.png"
               alt="search"
-              width={50}
-              height={20}
+              width="30px"
+              height="30px"
             />
           </SearchIconWraper>
         </FilterItemStyled>

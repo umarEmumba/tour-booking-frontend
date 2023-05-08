@@ -20,12 +20,8 @@ export const menu: menuItem[] = [
     url: "/",
   },
   {
-    title: "Add Tour",
-    url: "/",
-  },
-  {
     title: "My Tours",
-    url: "/",
+    url: "/my-tours",
   },
   {
     title: "Login",
@@ -65,3 +61,26 @@ export type filtersType = {
   priceMin?: string;
   priceMax?: string;
 };
+
+export interface FormInputs {
+  name: string;
+  email: string;
+  phoneNo: string;
+  paymentMethod: string;
+  tourId?: string;
+  userEmail?: string;
+}
+export interface localTour {
+  name: string;
+  city: string;
+  description: string;
+  price: string;
+  startDate: string;
+  endDate: string;
+  facilities: string;
+  images: string;
+  publicAddress: string;
+  id: string;
+  userEmail: string;
+  listingPreviewAmenityNames: string[];
+}

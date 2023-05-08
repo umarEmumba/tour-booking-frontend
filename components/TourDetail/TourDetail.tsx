@@ -13,6 +13,8 @@ import Description from "../common/Description/Description";
 import { demoDescription } from "@/constants/mockData";
 import { ResponsiveTable } from "../common/Table/Table";
 import { useRouter } from "next/router";
+import { ActionButtonContainer } from "../common/Card/Card";
+import { CardButton } from "../common/styled/CardStyled";
 
 interface TourDetailProps {
   tour: Tour;
@@ -43,7 +45,11 @@ const TourDetail: FC<TourDetailProps> = ({ tour }) => {
       <HeadingStyled>{`What's Included`}</HeadingStyled>
       <ResponsiveTable tour={tour} />
       <HeadingStyled>{`Itinerary Schedule`}</HeadingStyled>
-      <button onClick={() => router.push(`/book-tour/${tour.id}`)}>test</button>
+      <ActionButtonContainer>
+        <CardButton onClick={() => router.push(`/book-tour/${tour.id}`)}>
+          Book Tour
+        </CardButton>
+      </ActionButtonContainer>
     </>
   );
 };

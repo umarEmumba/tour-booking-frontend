@@ -6,5 +6,5 @@ interface DescriptionStyledProps {
 
 export const DescriptionStyled = styled.p<DescriptionStyledProps>`
   text-align: center;
-  ${({ nowrap }) => nowrap && `flex-wrap: nowrap`}
+  ${({ nowrap }) => nowrap && `white-space: nowrap`}
 `;
