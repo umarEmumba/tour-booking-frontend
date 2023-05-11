@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {
   FilterContainerStyled,
   FilterItemStyled,
@@ -8,50 +7,14 @@ import {
 import Location from "./Location/Location";
 import DatePicker from "./DatePicker/DatePicker";
 import PriceRange from "./PriceRange/PriceRange";
-import { useState } from "react";
-import {
-  API_BASE_URL,
-  API_HOST,
-  API_KEY,
-  POPULAR_PLACES,
-  TOURS_END_POINT,
-  filtersType,
-} from "@/constants";
-import { useMutation, useQueryClient } from "react-query";
-import { api } from "@/utils";
 import LocationIcon from "../Icons/LocationIcon/LocationIcon";
 import CalendarIcon from "../Icons/CalendarIcon/CalendarIcon";
 import DollarIcon from "../Icons/DollarIcon/DollarIcon";
 import { LogoImage } from "../Logo/LogoStyled";
+import { useFilters } from "@/hooks/useFilters";
 
 const Filters = () => {
-  const [filterItems, setFilterItems] = useState<filtersType>({
-    id: POPULAR_PLACES[1].id,
-    minDate: "",
-    maxDate: "",
-    priceMin: "",
-    priceMax: "",
-  });
-  const queryClient = useQueryClient();
-
-  const refetchQueryMutation = useMutation(
-    async () => {
-      const tourApi = `${API_BASE_URL}${TOURS_END_POINT}`;
-      const { data } = await api.get(tourApi, {
-        params: filterItems,
-        headers: {
-          "X-RapidAPI-Key": API_KEY,
-          "X-RapidAPI-Host": API_HOST,
-        },
-      });
-      return data.data;
-    },
-    {
-      onSuccess: (data) => {
-        queryClient.setQueryData("tours", data);
-      },
-    }
-  );
+  const { filterItems, setFilterItems, mutate, isLoading } = useFilters();
   return (
     <FilterContainerStyled>
       <FilterWraper>
@@ -68,13 +31,23 @@ const Filters = () => {
           <PriceRange setPriceRange={setFilterItems} />
         </FilterItemStyled>
         <FilterItemStyled noBorder>
-          <SearchIconWraper onClick={() => refetchQueryMutation.mutate()}>
-            <LogoImage
-              src="/assets/images/icons/search.png"
-              alt="search"
-              width="30px"
-              height="30px"
-            />
+          <SearchIconWraper>
+            {isLoading ? (
+              <LogoImage
+                src="/assets/images/spinner.gif"
+                alt="search"
+                width="30px"
+                height="30px"
+              />
+            ) : (
+              <LogoImage
+                src="/assets/images/icons/search.png"
+                alt="search"
+                width="30px"
+                height="30px"
+                onClick={() => mutate()}
+              />
+            )}
           </SearchIconWraper>
         </FilterItemStyled>
       </FilterWraper>

@@ -2,14 +2,11 @@ import {
   API_BASE_URL,
   API_HOST,
   API_KEY,
-  DefaultLocationId,
   SERVER_URL,
   TOURS_END_POINT,
-  TOURS_END_POINT_NO_LOCATION,
   filtersType,
 } from "@/constants";
 import { api } from ".";
-import { parseJSON } from "date-fns";
 import { tourData } from "@/constants/mockData";
 
 export interface Tour {
@@ -129,59 +126,41 @@ export interface Booking {
 export async function getTours(): Promise<Tour[]> {
   Promise.resolve(tourData);
   return tourData;
-  let tourApi = `${API_BASE_URL}${TOURS_END_POINT}`;
-  // return;
-  // if (!tourFilters?.locationId)
-  // {
-  const tourFilters = {
-    id: DefaultLocationId,
-  };
-  // }
-  // tourFilters.locationId = DefaultLocationId;
-  //   tourApi = `${API_BASE_URL}${TOURS_END_POINT_NO_LOCATION}`;
-  // return;
-  const { data } = await api.get(tourApi, {
-    params: tourFilters,
-    headers: {
-      "X-RapidAPI-Key": API_KEY,
-      "X-RapidAPI-Host": API_HOST,
-    },
-  });
-  return data.data;
 }
 export async function getBooking(
   email: string | null | undefined,
   id: string | undefined
-): Promise<Booking> {
-  const { data } = await api.get(`${SERVER_URL}bookings`, {
+): Promise<Booking | null> {
+  const data = await api.get(`${SERVER_URL}bookings`, {
     params: { userEmail: email, tourId: id },
   });
-  return data[0];
+
+  if (data.length) return data[0];
+  return data;
+}
+
+export async function getMyTours(
+  email: string | null | undefined
+): Promise<Tour[] | null> {
+  const data = await api.get(`${SERVER_URL}tours`, {
+    params: { userEmail: email },
+  });
+  console.log({ data, email });
+  if (data?.length) return data;
+  return null;
 }
 
 export async function getFilteredTours(filters: filtersType): Promise<Tour[]> {
-  // const {data} = parseJSON(toursTestJson) as Tour[];
-  Promise.resolve(tourData);
-  return tourData;
   const tourApi = `${API_BASE_URL}${TOURS_END_POINT}`;
-  // return;
-  // if (!tourFilters?.locationId)
-  // {
-  const tourFilters = {
-    id: DefaultLocationId,
-  };
-  // }
-  // tourFilters.locationId = DefaultLocationId;
-  //   tourApi = `${API_BASE_URL}${TOURS_END_POINT_NO_LOCATION}`;
-  // return;
-  const { data } = await api.get(tourApi, {
-    params: tourFilters,
+
+  const data = await api.get(tourApi, {
+    params: filters,
     headers: {
       "X-RapidAPI-Key": API_KEY,
       "X-RapidAPI-Host": API_HOST,
     },
   });
-  return data.data;
+  return data;
 }
 
 export const saveTour = (tour: Tour) => {
@@ -197,7 +176,6 @@ export const saveTour = (tour: Tour) => {
 
 export const getTour = (id: string | string[]) => {
   if (Array.isArray(id)) return;
-
   const existingToursJson = localStorage.getItem("tours");
   if (!existingToursJson) return;
   const existingTours = JSON.parse(existingToursJson);

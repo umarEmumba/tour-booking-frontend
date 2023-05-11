@@ -76,8 +76,11 @@ export interface localTour {
   city: string;
   description: string;
   price: string;
-  startDate: string;
-  endDate: string;
+  checkin: string;
+  checkout: string;
+  localizedCityName: string;
+  listingName: string;
+  listingGuestLabel: string;
   facilities: string;
   images: string;
   publicAddress: string;

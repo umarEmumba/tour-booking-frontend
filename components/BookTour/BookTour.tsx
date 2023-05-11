@@ -4,12 +4,11 @@ import BookForm from "../BookForm/BookForm";
 import { useBookTour } from "@/hooks/useBookTour";
 
 const BookTour = () => {
-  const { onSubmit, tour } = useBookTour();
-
+  const { SaveTourLocally, tour } = useBookTour();
   return (
     <Container>
       <BookingWraper>
-        <BookForm onSubmit={onSubmit} />
+        <BookForm saveTour={SaveTourLocally} />
         {tour && (
           <BookingImageWraper>
             <GalleryImage src={tour.images[0]} alt="side image" />

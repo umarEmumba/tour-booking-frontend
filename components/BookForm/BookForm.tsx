@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import {
   FormWrapper,
   Input,
@@ -10,41 +10,22 @@ import {
 } from "../BookTour/BookTourStyled";
 import { useForm, Controller } from "react-hook-form";
 import { FormInputs } from "@/constants";
-import { useQuery, useQueryClient } from "react-query";
-import { useRouter } from "next/router";
-import { useUser } from "@auth0/nextjs-auth0/client";
-import { Booking, getBooking } from "@/utils/services";
+import { useBookForm } from "@/hooks/useBookForm";
 
 interface BookFormProps {
-  onSubmit: (data: FormInputs) => void;
+  saveTour: (data: FormInputs) => void;
 }
 
-const BookForm: FC<BookFormProps> = ({ onSubmit }) => {
+const BookForm: FC<BookFormProps> = ({ saveTour }) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormInputs>();
-  const router = useRouter();
-  const { id } = router.query;
-  const tourId = useMemo(() => {
-    if (id?.length) {
-      if (Array.isArray(id)) return id[0];
-      return id;
-    }
-  }, [id]);
-  const { user } = useUser();
-  const { data: booking } = useQuery<Booking>({
-    queryKey: `booking-${tourId}`,
-    queryFn: () => getBooking(user?.email, tourId),
-  });
-  const formSubmitted = (data: FormInputs) => {
-    data.bookingId = booking?._id;
-    onSubmit(data);
-  };
+  const { onFormSubmit, booking } = useBookForm(saveTour);
 
   return (
-    <FormWrapper onSubmit={handleSubmit(formSubmitted)}>
+    <FormWrapper onSubmit={handleSubmit(onFormSubmit)}>
       {booking ? <h1>Update Your Booking</h1> : <h1>Confirm Your Booking</h1>}
       <InputWrapper>
         <Label>Name:</Label>
@@ -106,7 +87,6 @@ const BookForm: FC<BookFormProps> = ({ onSubmit }) => {
           render={({ field }) => (
             <>
               <Select {...field}>
-                <option value=""></option>
                 <option value="">Select a payment method</option>
                 <option value="creditCard">Credit Card</option>
                 <option value="paypal">PayPal</option>

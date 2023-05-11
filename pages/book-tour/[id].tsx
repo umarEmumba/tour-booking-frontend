@@ -1,11 +1,8 @@
 import BookTour from "@/components/BookTour/BookTour";
 import Container from "@/components/common/Container/Container";
-import { getBooking, getTour } from "@/utils/services";
+import { getBooking } from "@/utils/services";
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
-// import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
-import { useRouter } from "next/router";
-import { FC } from "react";
-import { QueryClient, dehydrate, useQuery } from "react-query";
+import { QueryClient, dehydrate } from "react-query";
 
 export const getServerSideProps = withPageAuthRequired({
   async getServerSideProps(ctx) {
@@ -33,13 +30,6 @@ export const getServerSideProps = withPageAuthRequired({
 });
 
 const Tour = () => {
-  // const router = useRouter();
-  // const { id } = router.query;
-  // const { data: tour } = useQuery(`tour-${id}`, () => {
-  //   if (!id) return;
-  //   return getTour(id);
-  // });
-
   return <Container isSubpage>{<BookTour />}</Container>;
 };
 export default Tour;

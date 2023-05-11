@@ -48,12 +48,12 @@ export const api = {
 };
 
 const fetchAPIData = async ([method, url, options]: FetchType) => {
-  // try {
-  return await axios[method](url, { ...options });
-  // return response?.data;
-  // } catch (error) {
-  //   return Promise.reject(error);
-  // }
+  try {
+    const response = await axios[method](url, { ...options });
+    return response?.data;
+  } catch (error) {
+    return Promise.reject(error);
+  }
 };
 
 export const getTourDays = (checkin?: string, checkout?: string) => {

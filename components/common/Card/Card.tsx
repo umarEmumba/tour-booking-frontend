@@ -11,7 +11,15 @@ import { FC } from "react";
 import { useRouter } from "next/router";
 import { useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
-import { api } from "@/utils";
+import { api, getTourDays } from "@/utils";
+import {
+  ShortDetailContainerStyled,
+  ShortDetailItemStyled,
+} from "@/components/TourDetail/TourDetailStyled";
+import LocationIcon from "../Icons/LocationIcon/LocationIcon";
+import DollarIcon from "../Icons/DollarIcon/DollarIcon";
+import CalendarIcon from "../Icons/CalendarIcon/CalendarIcon";
+import ShortDetail from "../ShortDetail/ShortDetail";
 
 interface CardProps {
   tour: Tour;
@@ -52,7 +60,7 @@ const Card: FC<CardProps> = ({ tour }) => {
         if (previousTours)
           queryClient.setQueryData(
             "my-tours",
-            previousTours.filter((localTour) => localTour._id === id)
+            previousTours.filter((localTour) => localTour._id !== id)
           );
       },
     }
@@ -65,6 +73,11 @@ const Card: FC<CardProps> = ({ tour }) => {
       />
       <CardTitle>{tour.title}</CardTitle>
       <CardDescription>{tour.listingName}</CardDescription>
+      <ShortDetail
+        location={tour.localizedCityName}
+        days={`${getTourDays(tour.checkin, tour.checkout)}`}
+        price={tour.price}
+      />
       <ActionButtonContainer position="absolute">
         <CardButton onClick={() => handleViewDetails(tour)}>
           View Details

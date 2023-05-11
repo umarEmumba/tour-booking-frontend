@@ -3,24 +3,17 @@ import { CardsContainer } from "../common/styled/CardStyled";
 import { Tour, getTours } from "@/utils/services";
 import Card from "../common/Card/Card";
 import NoData from "../common/NoData/NoData";
+import Loader from "../common/Loader/Loader";
 
 const Tours = () => {
   const queryClient = useQueryClient();
-  const {
-    data: tours,
-    isLoading,
-    isError,
-  } = useQuery("tours", getTours, {
+  const { data: tours, isLoading } = useQuery("tours", getTours, {
     initialData: queryClient.getQueryData("tours"),
     // initialStale: true,
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (isError) {
-    return <div>Error</div>;
+    return <Loader />;
   }
   if (!tours?.length) {
     return <NoData />;
