@@ -12,13 +12,6 @@ import { useRouter } from "next/router";
 import { useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
 import { api, getTourDays } from "@/utils";
-import {
-  ShortDetailContainerStyled,
-  ShortDetailItemStyled,
-} from "@/components/TourDetail/TourDetailStyled";
-import LocationIcon from "../Icons/LocationIcon/LocationIcon";
-import DollarIcon from "../Icons/DollarIcon/DollarIcon";
-import CalendarIcon from "../Icons/CalendarIcon/CalendarIcon";
 import ShortDetail from "../ShortDetail/ShortDetail";
 
 interface CardProps {

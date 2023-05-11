@@ -145,7 +145,6 @@ export async function getMyTours(
   const data = await api.get(`${SERVER_URL}tours`, {
     params: { userEmail: email },
   });
-  console.log({ data, email });
   if (data?.length) return data;
   return null;
 }
